@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ServeBoy</title>
+</head>
+<body>
+
+<div class="folder">
+    <h2>
+        Current Directory: {{.currentDirectory}}
+    </h2>
+    <form action="/sbapi/upload" method="post" enctype="multipart/form-data" id="submitForm">
+        <input type="file" name="file" id="submitFile">
+        <button id="submitButton">Upload</button>
+    </form>
+    {{range .directoryAnchorList}}
+    <a href="{{.Href}}">{{.DirectoryName}}</a>
+    <br>
+    {{end}}
+    {{range .fileAnchorList}}
+    <a href="{{.Href}}">{{.FileName}}</a>
+    <br>
+    {{end}}
+</div>
+<script>
+    const button = document.querySelector("#submitButton")
+    const form = document.querySelector("#submitForm")
+    button.addEventListener("click", () => {
+        form.action = form.action + "?path=" + location.pathname
+        form.submit()
+    })
+</script>
+</body>
+</html>
+
